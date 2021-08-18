@@ -23,7 +23,9 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+#if newgrounds//NG shit so it will build on android
 import io.newgrounds.NG;
+#end
 import lime.app.Application;
 import openfl.Assets;
 
