@@ -1,5 +1,7 @@
 package;
 
+import flixel.input.actions.FlxActionInput;
+import FlxVirtualPad;
 import flixel.FlxBasic;
 #if windows
 import Discord.DiscordClient;
@@ -23,6 +25,24 @@ class MusicBeatState extends FlxUIState
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
+	var _virtualpad:FlxVirtualPad;
+
+	var trackedinputs:Array<FlxActionInput> = [];
+
+	// adding virtualpad to state
+	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
+		_virtualpad = new FlxVirtualPad(DPad, Action);
+		_virtualpad.alpha = 0.75;
+		add(_virtualpad);
+		controls.setVirtualPad(_virtualpad, DPad, Action);
+		trackedinputs = controls.trackedinputs;
+		controls.trackedinputs = [];
+
+		#if android
+		controls.addAndroidBack();
+		#end
+	}
+	
 	private var assets:Array<FlxBasic> = [];
 
 	override function add(Object:flixel.FlxBasic):flixel.FlxBasic
@@ -209,6 +229,12 @@ class MusicBeatState extends FlxUIState
 	public function beatHit():Void
 	{
 		//do literally nothing dumbass
+	}
+
+	override function destroy():Void
+	{
+		controls.removeFlxInput(trackedinputs);
+		super.destroy();
 	}
 	
 	public function fancyOpenURL(schmancy:String)
