@@ -60,8 +60,8 @@ class TitleState extends MusicBeatState
 		#end
 		
 		#if sys
-		if (!sys.FileSystem.exists(Sys.getCwd() + "/assets/replays"))
-			sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
+		if (!sys.FileSystem.exists(#if android Main.path #else Sys.getCwd() #end + "/assets/replays"))
+			sys.FileSystem.createDirectory(#if android Main.path #else Sys.getCwd() #end + "/assets/replays");
 		#end
 
 		@:privateAccess
@@ -69,7 +69,7 @@ class TitleState extends MusicBeatState
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
 		
-		#if !cpp
+		#if (!cpp || mobile)
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
 

@@ -11,7 +11,6 @@ import flixel.util.FlxSave;
 import flixel.math.FlxPoint;
 import haxe.Json;
 import Hitbox;
-import Config;
 #if lime
 import lime.system.Clipboard;
 #end
@@ -46,15 +45,10 @@ class CustomControlsState extends MusicBeatSubstate
 
 	var bindbutton:flixel.ui.FlxButton;
 
-	var config:Config;
-
 	public function new()
 	{
 		super();
 
-		//init config
-		config = new Config();
-		
 		// bg
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic('assets/images/menuBG.png');
 		bg.scrollFactor.x = 0;
@@ -65,7 +59,7 @@ class CustomControlsState extends MusicBeatSubstate
 		bg.antialiasing = true;
 
 		// load curSelected
-		curSelected = config.getcontrolmode();
+		curSelected = FlxG.save.data.controlMode;
 		
 
 		//pad
@@ -345,7 +339,8 @@ class CustomControlsState extends MusicBeatSubstate
 
 	function save() {
 
-		config.setcontrolmode(curSelected);
+		FlxG.save.data.controlMode = curSelected;
+		FlxG.save.flush();
 		
 		if (curSelected == 3){
 			savecustom();
@@ -355,14 +350,24 @@ class CustomControlsState extends MusicBeatSubstate
 	function savecustom() {
 		trace("saved");
 
-		//Config.setdata(55);
-
-		config.savecustom(_pad);
+		var tempCount:Int = 0;
+		for (buttons in _pad)
+		{
+			FlxG.save.data.vpadPositon[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+			tempCount++;
+		}	
 	}
 
 	function loadcustom():Void{
 		//load pad
-		_pad = config.loadcustom(_pad);	
+		var tempCount:Int = 0;
+
+		for(buttons in _pad)
+		{
+			buttons.x = FlxG.save.data.vpadPositon[tempCount].x;
+			buttons.y = FlxG.save.data.vpadPositon[tempCount].y;
+			tempCount++;
+		}
 	
 	}
 

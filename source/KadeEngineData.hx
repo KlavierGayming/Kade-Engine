@@ -118,6 +118,12 @@ class KadeEngineData
 		if (FlxG.save.data.zoom == null)
 			FlxG.save.data.zoom = 1;
 
+		if (FlxG.save.data.controlMode)
+			FlxG.save.data.controlMode = 0;
+
+		if (FlxG.save.data.vpadPositon)
+			FlxG.save.data.vpadPositon = new Array();
+
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		
 		KeyBinds.gamepad = gamepad != null;
