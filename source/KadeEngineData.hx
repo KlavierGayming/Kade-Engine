@@ -1,3 +1,4 @@
+import flixel.math.FlxPoint;
 import flixel.input.gamepad.FlxGamepad;
 import openfl.Lib;
 import flixel.FlxG;
@@ -118,11 +119,11 @@ class KadeEngineData
 		if (FlxG.save.data.zoom == null)
 			FlxG.save.data.zoom = 1;
 
-		if (FlxG.save.data.controlMode)
+		if (FlxG.save.data.controlMode == null)
 			FlxG.save.data.controlMode = 0;
 
-		if (FlxG.save.data.vpadPositon)
-			FlxG.save.data.vpadPositon = new Array();
+		if (FlxG.save.data.vpadPositon == null)
+			FlxG.save.data.vpadPositon = new Array<FlxPoint>();
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		

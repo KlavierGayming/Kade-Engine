@@ -360,6 +360,14 @@ class CustomControlsState extends MusicBeatSubstate
 
 	function loadcustom():Void{
 		//load pad
+		if (FlxG.save.data.vpadPositon.length == 0)
+		{
+			for (buttons in _pad)
+			{
+				FlxG.save.data.vpadPositon.push(FlxPoint.get(buttons.x, buttons.y));
+			}
+		}
+
 		var tempCount:Int = 0;
 
 		for(buttons in _pad)
