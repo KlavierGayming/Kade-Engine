@@ -1,5 +1,7 @@
 package;
 
+import FlxVirtualPad;
+import flixel.input.actions.FlxActionInput;
 import flixel.FlxBasic;
 #if windows
 import Discord.DiscordClient;
@@ -174,6 +176,25 @@ class MusicBeatState extends FlxUIState
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 
 		super.update(elapsed);
+	}
+
+	var _virtualpad:FlxVirtualPad;
+	var trackedinputs:Array<FlxActionInput> = [];
+
+	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) 
+	{
+		_virtualpad = new FlxVirtualPad(DPad, Action);
+		_virtualpad.alpha = 0.75;
+		add(_virtualpad);
+		controls.setVirtualPad(_virtualpad, DPad, Action);
+		trackedinputs = controls.trackedinputs;
+		controls.trackedinputs = [];
+	}
+
+	override function destroy() 
+	{
+		controls.removeFlxInput(trackedinputs);
+		super.destroy();
 	}
 
 	private function updateBeat():Void

@@ -2,11 +2,8 @@ package;
 
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
-
 import FlxVirtualPad;
 import Hitbox;
-
-import Config;
 
 class Mobilecontrols extends FlxSpriteGroup
 {
@@ -15,17 +12,12 @@ class Mobilecontrols extends FlxSpriteGroup
 	public var _hitbox:Hitbox;
 	public var _virtualPad:FlxVirtualPad;
 
-	var config:Config;
-
 	public function new() 
 	{
 		super();
-		
-		config = new Config();
 
 		// load control mode num from Config.hx
-		mode = getModeFromNumber(config.getcontrolmode());
-		trace(config.getcontrolmode());
+		mode = getModeFromNumber(FlxG.save.data.controlMode);
 
 		switch (mode)
 		{
@@ -50,7 +42,15 @@ class Mobilecontrols extends FlxSpriteGroup
 				_virtualPad = new FlxVirtualPad(FULL, NONE);
 			case 2:
 				_virtualPad = new FlxVirtualPad(FULL, NONE);
-				_virtualPad = config.loadcustom(_virtualPad);
+				
+				var tempCount:Int = 0;
+
+				for(buttons in _virtualPad)
+				{
+					buttons.x = FlxG.save.data.vpadPositon[tempCount].x;
+					buttons.y = FlxG.save.data.vpadPositon[tempCount].y;
+					tempCount++;
+				}
 			default: // 0
 				_virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
 		}

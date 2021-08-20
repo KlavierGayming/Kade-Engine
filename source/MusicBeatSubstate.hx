@@ -1,5 +1,7 @@
 package;
 
+import FlxVirtualPad;
+import flixel.input.actions.FlxActionInput;
 import Conductor.BPMChangeEvent;
 import flixel.FlxG;
 import flixel.FlxSubState;
@@ -47,6 +49,25 @@ class MusicBeatSubstate extends FlxSubState
 		}
 
 		super.update(elapsed);
+	}
+
+	var _virtualpad:FlxVirtualPad;
+	var trackedinputs:Array<FlxActionInput> = [];
+
+	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) 
+	{
+		_virtualpad = new FlxVirtualPad(DPad, Action);
+		_virtualpad.alpha = 0.75;
+		add(_virtualpad);
+		controls.setVirtualPad(_virtualpad, DPad, Action);
+		trackedinputs = controls.trackedinputs;
+		controls.trackedinputs = [];
+	}
+
+	override function destroy() 
+	{
+		controls.removeFlxInput(trackedinputs);
+		super.destroy();
 	}
 
 	private function updateBeat():Void

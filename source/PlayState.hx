@@ -191,6 +191,10 @@ class PlayState extends MusicBeatState
 	private var camGame:FlxCamera;
 	public var cannotDie = false;
 
+	#if mobileC
+	var mcontrols:Mobilecontrols; 
+	#end
+
 	public static var offsetTesting:Bool = false;
 
 	public var isSMFile:Bool = false;
@@ -1239,6 +1243,30 @@ class PlayState extends MusicBeatState
 		if (loadRep)
 			replayTxt.cameras = [camHUD];
 
+		#if mobileC
+		mcontrols = new Mobilecontrols();
+		switch (mcontrols.mode)
+		{
+			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				controls.setVirtualPad(mcontrols._virtualPad, FULL, NONE);
+			case HITBOX:
+				controls.setHitBox(mcontrols._hitbox);
+			default:
+		}
+		trackedinputs = controls.trackedinputs;
+		controls.trackedinputs = [];
+
+		var camcontrol = new FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		mcontrols.cameras = [camcontrol];
+
+		//mcontrols.visible = false;
+		mcontrols.alpha = 0;
+
+		add(mcontrols);
+		#end	
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -1406,7 +1434,9 @@ class PlayState extends MusicBeatState
 		//generateStaticArrows(0);
 		//generateStaticArrows(1);
 
-
+		#if mobileC
+		mcontrols.visible = true;
+		#end
 
 		#if cpp
 		// pre lowercasing the song name (startCountdown)
@@ -3324,6 +3354,9 @@ class PlayState extends MusicBeatState
 			PlayState.instance.remove(PlayState.instance.videoSprite);
 		}
 
+		#if mobileC
+		mcontrols.visible = false;
+		#end
 
 		if (!loadRep)
 			rep.SaveReplay(saveNotes, saveJudge, replayAna);
@@ -3873,7 +3906,7 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		if ((KeyBinds.gamepad #if mobileC || FlxG.save.data.controlMode != 2 #end && !FlxG.keys.justPressed.ANY))
+		if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY))
 		{
 			// PRESSES, check for note hits
 			if (pressArray.contains(true) && generatedMusic)
