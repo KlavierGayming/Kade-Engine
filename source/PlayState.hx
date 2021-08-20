@@ -3425,7 +3425,9 @@ class PlayState extends MusicBeatState
 
 					if (SONG.validScore)
 					{
+						#if newgrounds
 						NGio.unlockMedal(60961);
+						#end
 						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 					}
 
@@ -3871,7 +3873,7 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY))
+		if ((KeyBinds.gamepad #if mobileC || FlxG.save.data.controlMode != 2 #end && !FlxG.keys.justPressed.ANY))
 		{
 			// PRESSES, check for note hits
 			if (pressArray.contains(true) && generatedMusic)
