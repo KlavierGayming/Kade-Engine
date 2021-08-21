@@ -125,6 +125,9 @@ class KadeEngineData
 		if (FlxG.save.data.vpadPositon == null)
 			FlxG.save.data.vpadPositon = new Array<FlxPoint>();
 
+		if (FlxG.save.data.Binded == null)
+			FlxG.save.data.Binded = false;
+
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 		
 		KeyBinds.gamepad = gamepad != null;
