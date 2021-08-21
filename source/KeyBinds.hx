@@ -26,6 +26,7 @@ class KeyBinds
         FlxG.save.data.gpleftBind = "DPAD_LEFT";
         FlxG.save.data.gprightBind = "DPAD_RIGHT";
         PlayerSettings.player1.controls.loadKeyBinds();
+        FlxG.save.data.Binded = false;
 
 	}
 
