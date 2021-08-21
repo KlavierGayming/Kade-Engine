@@ -1566,10 +1566,17 @@ class PlayState extends MusicBeatState
 
 	var keys = [false, false, false, false];
 
+	#if desktop
 	private function releaseInput(evt:KeyboardEvent):Void // handles releases
+	#else
+	private function releaseCheck(evt:Int):Void
+	#end
 	{
 		@:privateAccess
+		#if desktop
 		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
+		#else
+		var key = evt;
 
 		var binds:Array<String> = [
 			FlxG.save.data.leftBind,
@@ -1580,6 +1587,7 @@ class PlayState extends MusicBeatState
 
 		var data = -1;
 
+		#if desktop
 		switch (evt.keyCode) // arrow keys
 		{
 			case 37:
@@ -1591,11 +1599,16 @@ class PlayState extends MusicBeatState
 			case 39:
 				data = 3;
 		}
+		#else
+		data = evt;
+		#end
 
-		for (i in 0...binds.length) // binds
-		{
-			if (binds[i].toLowerCase() == key.toLowerCase())
-				data = i;
+		if (FlxG.save.data.Binded){
+			for (i in 0...binds.length) // binds
+			{
+				if (binds[i].toLowerCase() == key.toLowerCase())
+					data = i;
+			}
 		}
 
 		if (data == -1)
@@ -1606,8 +1619,11 @@ class PlayState extends MusicBeatState
 
 	public var closestNotes:Array<Note> = [];
 	
-
+	#if desktop
 	private function handleInput(evt:KeyboardEvent):Void
+	#else
+	private function inputCheck(evt:Int):Void
+	#end
 	{ // this actually handles press inputs
 
 		if (PlayStateChangeables.botPlay || loadRep || paused)
@@ -1618,7 +1634,11 @@ class PlayState extends MusicBeatState
 		// this makes it work for special characters
 
 		@:privateAccess
+		#if desktop
 		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
+		#else
+		var key = evt;
+		#end
 
 		var binds:Array<String> = [
 			FlxG.save.data.leftBind,
@@ -1629,6 +1649,7 @@ class PlayState extends MusicBeatState
 
 		var data = -1;
 
+		#if desktop
 		switch (evt.keyCode) // arrow keys
 		{
 			case 37:
@@ -1640,22 +1661,23 @@ class PlayState extends MusicBeatState
 			case 39:
 				data = 3;
 		}
+		#else
+		data = evt;
+		#end
 
-		for (i in 0...binds.length) // binds
-		{
-			if (binds[i].toLowerCase() == key.toLowerCase())
-				data = i;
+		if (FlxG.save.data.Binded){
+			for (i in 0...binds.length) // binds
+			{
+				if (binds[i].toLowerCase() == key.toLowerCase())
+					data = i;
+			}
 		}
+
 		if (data == -1)
-		{
-			trace("couldn't find a keybind with the code " + key);
 			return;
-		}
+
 		if (keys[data])
-		{
-			trace("ur already holding " + key);
 			return;
-		}
 
 		keys[data] = true;
 
@@ -2249,6 +2271,26 @@ class PlayState extends MusicBeatState
 	{
 		#if !debug
 		perfectMode = false;
+		#end
+		#if (mobile || android)
+		//presses
+		if (controls.RIGHT_P)
+			inputCheck(3);
+		if (controls.LEFT_P)
+			inputCheck(0);
+		if (controls.UP_P)
+			inputCheck(2);
+		if (controls.DOWN_P)
+			inputCheck(1);
+		//releases
+		if (controls.RIGHT_R)
+			releaseCheck(3);
+		if (controls.LEFT_R)
+			releaseCheck(0);
+		if (controls.UP_R)
+			releaseCheck(2);
+		if (controls.DOWN_R)
+			releaseCheck(1);
 		#end
 
 		if (generatedMusic)
