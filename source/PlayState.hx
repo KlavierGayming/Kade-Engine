@@ -2275,24 +2275,8 @@ class PlayState extends MusicBeatState
 		perfectMode = false;
 		#end
 		#if (mobile || android)
-		//presses
-		if (controls.RIGHT_P)
-			inputCheck(3);
-		if (controls.LEFT_P)
-			inputCheck(0);
-		if (controls.UP_P)
-			inputCheck(2);
-		if (controls.DOWN_P)
-			inputCheck(1);
-		//releases
-		if (controls.RIGHT_R)
-			releaseCheck(3);
-		if (controls.LEFT_R)
-			releaseCheck(0);
-		if (controls.UP_R)
-			releaseCheck(2);
-		if (controls.DOWN_R)
-			releaseCheck(1);
+		if (generatedMusic)
+			mobileInput();
 		#end
 
 		if (generatedMusic)
@@ -3389,6 +3373,35 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
+	}
+
+	function mobileInput(){
+		//presses
+		if (controls.RIGHT_P)
+			inputCheck(3);
+		
+		if (controls.LEFT_P)
+			inputCheck(0);
+		
+		if (controls.UP_P)
+			inputCheck(2);
+		
+		if (controls.DOWN_P)
+			inputCheck(1);
+
+		//releases
+		if (controls.RIGHT_R)
+			releaseCheck(3);
+		
+		if (controls.LEFT_R)
+			releaseCheck(0);
+		
+		if (controls.UP_R)
+			releaseCheck(2);
+		
+		if (controls.DOWN_R)
+			releaseCheck(1);
+		
 	}
 
 	function endSong():Void
