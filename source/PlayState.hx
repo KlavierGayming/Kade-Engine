@@ -1605,13 +1605,15 @@ class PlayState extends MusicBeatState
 		data = evt;
 		#end
 
-		if (FlxG.save.data.Binded){
-			for (i in 0...binds.length) // binds
-			{
-				if (binds[i].toLowerCase() == key.toLowerCase())
-					data = i;
-			}
+		//if (FlxG.save.data.Binded){
+		#if desktop
+		for (i in 0...binds.length) // binds
+		{
+			if (binds[i].toLowerCase() == key.toLowerCase())
+				data = i;
 		}
+		#end
+		//}
 
 		if (data == -1)
 			return;
@@ -1639,7 +1641,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
 		#else
-		var key = evt;
+		var key:Int= evt;
 		#end
 
 		var binds:Array<String> = [
@@ -1667,13 +1669,15 @@ class PlayState extends MusicBeatState
 		data = evt;
 		#end
 
-		if (FlxG.save.data.Binded){
-			for (i in 0...binds.length) // binds
-			{
-				if (binds[i].toLowerCase() == key.toLowerCase())
-					data = i;
-			}
+		//if (FlxG.save.data.Binded){
+		#if desktop
+		for (i in 0...binds.length) // binds
+		{
+			if (binds[i].toLowerCase() == key.toLowerCase())
+				data = i;
 		}
+		#end
+		//}
 
 		if (data == -1)
 			return;
