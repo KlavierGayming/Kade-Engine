@@ -1327,8 +1327,10 @@ class PlayState extends MusicBeatState
 		if (!loadRep)
 			rep = new Replay("na");
 
+		#if desktop
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, releaseInput);
+		#end
 		super.create();
 	}
 
@@ -2507,8 +2509,10 @@ class PlayState extends MusicBeatState
 
 			FlxG.switchState(new ChartingState());
 			clean();
+			#if desktop
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, releaseInput);
+			#end
 			#if cpp
 			if (luaModchart != null)
 			{
@@ -2561,8 +2565,10 @@ class PlayState extends MusicBeatState
 
 			FlxG.switchState(new AnimationDebug(SONG.player2));
 			clean();
+			#if desktop
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, releaseInput);
+			#end
 			#if cpp
 			if (luaModchart != null)
 			{
@@ -2576,8 +2582,10 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.switchState(new AnimationDebug(SONG.player1));
 			clean();
+			#if desktop
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, releaseInput);
+			#end
 			#if cpp
 			if (luaModchart != null)
 			{
@@ -3386,8 +3394,10 @@ class PlayState extends MusicBeatState
 	function endSong():Void
 	{
 		endingSong = true;
+		#if desktop
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, releaseInput);
+		#end
 		if (useVideo)
 		{
 			GlobalVideo.get().stop();
