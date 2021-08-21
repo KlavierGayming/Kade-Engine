@@ -279,7 +279,7 @@ class KeyBindMenu extends FlxSubState
     }
 
     function save(){
-
+		FlxG.save.data.Binded = true;
         FlxG.save.data.upBind = keys[2];
         FlxG.save.data.downBind = keys[1];
         FlxG.save.data.leftBind = keys[0];
@@ -301,6 +301,7 @@ class KeyBindMenu extends FlxSubState
         for(i in 0...5){
             keys[i] = defaultKeys[i];
         }
+        FlxG.save.data.Binded = false;
         quit();
 
     }
