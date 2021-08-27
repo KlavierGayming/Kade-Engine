@@ -3271,6 +3271,7 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 	}
 
+	#if mobile
 	function mobileInput(){
 		//presses
 		if (controls.RIGHT_P)
@@ -3299,6 +3300,8 @@ class PlayState extends MusicBeatState
 			releaseCheck(1);
 		
 	}
+	#end
+	
 	public function getSectionByTime(ms:Float):SwagSection
 		{
 	
