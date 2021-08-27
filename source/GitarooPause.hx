@@ -49,6 +49,10 @@ class GitarooPause extends MusicBeatState
 		cancelButton.antialiasing = FlxG.save.data.antialiasing;
 		add(cancelButton);
 
+		#if mobileC
+		addVirtualPad(LEFT_RIGHT, A_B);
+		#end
+
 		changeThing();
 
 		super.create();

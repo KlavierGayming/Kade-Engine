@@ -962,9 +962,9 @@ class PlayState extends MusicBeatState
 		switch (mcontrols.mode)
 		{
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
-				controls.setVirtualPad(mcontrols._virtualPad, FULL, NONE);
+				controls.setVirtualPad(mcontrols.virtualPad, FULL, NONE);
 			case HITBOX:
-				controls.setHitBox(mcontrols._hitbox);
+				controls.setHitBox(mcontrols.hitbox);
 			default:
 		}
 		trackedinputs = controls.trackedinputs;
@@ -1404,7 +1404,7 @@ class PlayState extends MusicBeatState
 			if (i.noteData == data)
 				dataNotes.push(i);
 
-		trace("notes able to hit for " + key.toString() + " " + dataNotes.length);
+		trace("notes able to hit for " + key#if desktop .toString() #end + " " + dataNotes.length);
 
 		if (dataNotes.length != 0)
 		{
@@ -2403,8 +2403,10 @@ class PlayState extends MusicBeatState
 
 			FlxG.switchState(new AnimationDebug(dad.curCharacter));
 			clean();
+			#if desktop
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, releaseInput);
+			#end
 			#if cpp
 			if (luaModchart != null)
 			{
@@ -3301,7 +3303,7 @@ class PlayState extends MusicBeatState
 		
 	}
 	#end
-	
+
 	public function getSectionByTime(ms:Float):SwagSection
 		{
 	

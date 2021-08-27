@@ -9,8 +9,8 @@ class Mobilecontrols extends FlxSpriteGroup
 {
 	public var mode:ControlsGroup = HITBOX;
 
-	public var _hitbox:Hitbox;
-	public var _virtualPad:FlxVirtualPad;
+	public var hitbox:Hitbox;
+	public var virtualPad:FlxVirtualPad;
 
 	public function new() 
 	{
@@ -28,8 +28,8 @@ class Mobilecontrols extends FlxSpriteGroup
 			case VIRTUALPAD_CUSTOM:
 				initVirtualPad(2);
 			case HITBOX:
-				_hitbox = new Hitbox();
-				add(_hitbox);
+				hitbox = new Hitbox();
+				add(hitbox);
 			case KEYBOARD:
 		}
 	}
@@ -39,24 +39,24 @@ class Mobilecontrols extends FlxSpriteGroup
 		switch (vpadMode)
 		{
 			case 1:
-				_virtualPad = new FlxVirtualPad(FULL, NONE);
+				virtualPad = new FlxVirtualPad(FULL, NONE);
 			case 2:
-				_virtualPad = new FlxVirtualPad(FULL, NONE);
+				virtualPad = new FlxVirtualPad(FULL, NONE);
 				
 				var tempCount:Int = 0;
 
-				for(buttons in _virtualPad)
+				for(buttons in virtualPad)
 				{
 					buttons.x = FlxG.save.data.vpadPositon[tempCount].x;
 					buttons.y = FlxG.save.data.vpadPositon[tempCount].y;
 					tempCount++;
 				}
 			default: // 0
-				_virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
+				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
 		}
 		
-		_virtualPad.alpha = 0.75;
-		add(_virtualPad);	
+		virtualPad.alpha = 0.75;
+		add(virtualPad);	
 	}
 
 

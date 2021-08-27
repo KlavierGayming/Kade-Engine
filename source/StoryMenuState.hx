@@ -214,6 +214,9 @@ class StoryMenuState extends MusicBeatState
 
 		updateText();
 
+		#if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
 
 		var bullShit:Int = 0;
 
