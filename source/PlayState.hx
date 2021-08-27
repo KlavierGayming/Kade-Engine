@@ -1579,6 +1579,7 @@ class PlayState extends MusicBeatState
 		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
 		#else
 		var key = evt;
+		#end
 
 		var binds:Array<String> = [
 			FlxG.save.data.leftBind,
