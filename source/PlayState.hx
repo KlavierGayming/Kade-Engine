@@ -1274,15 +1274,11 @@ class PlayState extends MusicBeatState
 	#end
 	{
 		@:privateAccess
-<<<<<<< HEAD
 		#if desktop
 		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
 		#else
 		var key = evt;
 		#end
-=======
-		var key = FlxKey.toStringMap.get(evt.keyCode);
->>>>>>> 28d952c497666a67b052d0e867d6ec068fa98a85
 
 		var binds:Array<String> = [
 			FlxG.save.data.leftBind,
@@ -1342,15 +1338,11 @@ class PlayState extends MusicBeatState
 		// this makes it work for special characters
 
 		@:privateAccess
-<<<<<<< HEAD
 		#if desktop
 		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
 		#else
 		var key:Int= evt;
 		#end
-=======
-		var key = FlxKey.toStringMap.get(evt.keyCode);
->>>>>>> 28d952c497666a67b052d0e867d6ec068fa98a85
 
 		var binds:Array<String> = [
 			FlxG.save.data.leftBind,
